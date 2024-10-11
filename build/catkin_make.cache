@@ -1,0 +1,2 @@
+ira_laser_tools:kmriiwa_moving:kmriiwa_ros_stack/kmriiwa_bringup:kmriiwa_ros_stack/kmriiwa_description:kmriiwa_ros_stack/kmriiwa_gazebo:kmriiwa_ros_stack/kmriiwa_moveit:kmriiwa_ros_stack/kmriiwa_msgs:kmriiwa_ros_stack/kmriiwa_navigation:kmriiwa_ros_stack/kmriiwa_vis
+-DCATKIN_DEVEL_PREFIX=/home/yfl/CAIS_WS/devel -DCMAKE_INSTALL_PREFIX=/home/yfl/CAIS_WS/install -G Unix Makefiles

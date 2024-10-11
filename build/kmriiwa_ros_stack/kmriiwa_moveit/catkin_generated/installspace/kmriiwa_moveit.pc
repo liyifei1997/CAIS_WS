@@ -1,0 +1,8 @@
+prefix=/home/yfl/CAIS_WS/install
+
+Name: kmriiwa_moveit
+Description: Description of kmriiwa_moveit
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

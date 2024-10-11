@@ -1,0 +1,8 @@
+prefix=/home/yfl/CAIS_WS/install
+
+Name: kmriiwa_vis
+Description: Description of kmriiwa_vis
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
