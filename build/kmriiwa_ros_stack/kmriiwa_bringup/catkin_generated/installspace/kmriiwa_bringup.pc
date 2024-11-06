@@ -1,0 +1,8 @@
+prefix=/home/yfl/CAIS_WS/install
+
+Name: kmriiwa_bringup
+Description: Description of kmriiwa_bringup
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

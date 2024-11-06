@@ -1,0 +1,14 @@
+(cl:in-package kmriiwa_msgs-msg)
+(cl:export '(HEADER-VAL
+          HEADER
+          CHARGE_STATE_PERCENTAGE-VAL
+          CHARGE_STATE_PERCENTAGE
+          MOTION_ENABLED-VAL
+          MOTION_ENABLED
+          WARNING_FIELD_CLEAR-VAL
+          WARNING_FIELD_CLEAR
+          SAFETY_FIELD_CLEAR-VAL
+          SAFETY_FIELD_CLEAR
+          SAFETY_STATE_ENABLED-VAL
+          SAFETY_STATE_ENABLED
+))

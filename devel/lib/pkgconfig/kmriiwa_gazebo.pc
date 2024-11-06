@@ -1,0 +1,8 @@
+prefix=/home/yfl/CAIS_WS/devel
+
+Name: kmriiwa_gazebo
+Description: Description of kmriiwa_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp gazebo_ros gazebo_plugins gazebo_ros_control

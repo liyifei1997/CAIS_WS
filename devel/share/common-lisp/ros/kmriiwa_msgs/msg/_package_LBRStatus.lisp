@@ -1,0 +1,14 @@
+(cl:in-package kmriiwa_msgs-msg)
+(cl:export '(HEADER-VAL
+          HEADER
+          MOTION_ENABLED-VAL
+          MOTION_ENABLED
+          AXES_MASTERED-VAL
+          AXES_MASTERED
+          AXES_GMS_REFERENCED-VAL
+          AXES_GMS_REFERENCED
+          AXES_POSITION_REFERENCED-VAL
+          AXES_POSITION_REFERENCED
+          SAFETY_STATE_ENABLED-VAL
+          SAFETY_STATE_ENABLED
+))
