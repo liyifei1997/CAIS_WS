@@ -108,52 +108,82 @@ import math
 import time
 from kmriiwa_msgs.msg import JointPosition
 
-def inverse_kinematics(xd, yd, zd, Rd):
+def inverse_kinematics_line(start, end):
     d1 = 0.420
     d2 = 0.400
     db = 0.360
     dn = 0.2
+
+    #d1 and d2: lengths of the arm segments.
+    #db: a height offset related to the arm’s base.
+    #dn: the distance from the end-effector to the point where calculations are based.
     
+    # Calculate direction vector and length of the line segment
+    # Here, we calculate the direction vector from the start to the end position by subtracting the start coordinates from the end coordinates. 
+    # The length of this vector is computed using the Euclidean norm.
+    direction = np.array(end) - np.array(start)
+    length = np.linalg.norm(direction)
+    
+    #If the start and end points are identical (length is zero), the function raises an error since no movement is needed.
+    if length == 0:
+        raise ValueError("Start and end points are the same.")
+
+    # Normalize the direction vector
+    # The direction vector is normalized to get a unit vector Rd, which indicates the direction of movement without affecting its magnitude.
+    Rd = direction / length
+
+    # Compute desired position
+    # Od represents the desired end-effector position in 3D space.
+    # Oc calculates the corrected position by adjusting Od downwards by dn, which accounts for the end-effector's offset in the direction of the z-axis.
+    # zcc is the z-coordinate adjusted for the base height offset db.
+    xd, yd, zd = end
     Od = np.array([xd, yd, zd])
-    Oc = Od - dn * Rd @ np.array([0, 0, 1])
+    Oc = Od - dn * Rd @ np.array([0, 0, 1])  # Adjust for end-effector offset
     xc, yc, zc = Oc
     zcc = zc - db
-    
+
+    # Inverse kinematics calculations
+    #T used in the cosine law to find the angle between the two segments of the arm based on the distances.
     c4 = ((xc**2) + (yc**2) + (zcc**2) - (d1**2) - (d2**2)) / (2 * d1 * d2)
 
-
-    if not (-1 <= c4 <= 1): #new
+    #If c4 is outside the range of [-1, 1], there is no valid configuration for the arm to reach the target, so an error is raised.
+    if not (-1 <= c4 <= 1):
         raise ValueError("No valid solution for inverse kinematics.")
-    
 
+    #t1 computes the first joint angle (th1) using the arctan2 function, 
+    # which accounts for the signs of xc and yc to determine the correct quadrant of the angle.
     t1 = np.arctan2(-yc, -xc)
     th1 = np.degrees(t1)
-    
+
+    #This checks if the calculated angle is within the operational limits of the robotic arm. If not, an error is raised.
     if th1 < -170 or th1 > 170:
         raise ValueError("Out of workspace")
     
+    #These lines define coefficients A, B, and C for a quadratic equation derived from the kinematics of the arm.
     A = (xc**2) + (yc**2) + (zcc**2)
     B = -zcc * ((xc**2) + (yc**2) + (zcc**2) + (d1**2) - (d2**2)) / d1
     C = zcc**2 - (d2**2) * (1 - c4**2)
-    
+
+    #The discriminant (Del) is computed to determine if real solutions exist for the joint angles.
     Del = np.sqrt(B**2 - 4 * A * C)
 
-    if Del < 0: #new
+    if Del < 0:
         raise ValueError("No valid configuration.")
-
+    
+    #These lines calculate two possible solutions for the second joint angle (t2).
     c2a = (-B + Del) / (2 * A)
     c2b = (-B - Del) / (2 * A)
-    
-    t2a = np.arccos(c2a) if -1 <= c2a <= 1 else 0
-    t2b = np.arccos(c2b) if -1 <= c2b <= 1 else 0
 
-
-    # new
+    #joint_positions stores the possible configurations (joint angles).
+    #Each configuration includes th1 and the calculated angles t2a and t2b, which are converted to degrees. The other joint angles are initialized to zero.
     joint_positions = []
+    t2a = np.arccos(c2a) if -1 <= c2a <= 1 else None
+    t2b = np.arccos(c2b) if -1 <= c2b <= 1 else None
+
     if t2a is not None:
-        joint_positions.append([th1, np.degrees(t2a), 0, 0, 0, 0, 0])  # Add first solution
+        joint_positions.append([th1, np.degrees(t2a), 0, 0, 0, 0, 0])  # First solution
     if t2b is not None:
-        joint_positions.append([th1, np.degrees(t2b), 0, 0, 0, 0, 0])  # Add second solution
+        joint_positions.append([th1, np.degrees(t2b), 0, 0, 0, 0, 0])  # Second solution
 
     return joint_positions if joint_positions else None  # Return None if no valid solutions
 
@@ -186,8 +216,9 @@ def interpolate_joint_positions(start_positions, end_positions, steps):
 def move_from_a_to_b(point_a, point_b):
     # Compute end-effector positions
     Rd = np.eye(3)  # Assuming no rotation for simplicity; adjust as needed
-    joint_positions_a = inverse_kinematics(*point_a, Rd)
-    joint_positions_b = inverse_kinematics(*point_b, Rd)
+    joint_positions_a = inverse_kinematics_line(point_a, point_a)  # Correct call
+    joint_positions_b = inverse_kinematics_line(point_a, point_b)  # Use point_a as the start point
+
 
     if joint_positions_a is None or joint_positions_b is None:
         raise ValueError("Could not compute inverse kinematics for one or both points.")
@@ -198,6 +229,7 @@ def move_from_a_to_b(point_a, point_b):
 
     # Number of interpolation steps
     steps = 100
+    # make sure the start and end position 
     interpolate_joint_positions(start_positions, end_positions, steps)
 
 if __name__ == '__main__':
@@ -206,7 +238,7 @@ if __name__ == '__main__':
 
         # Define the end-effector positions for point A and point B
         point_a = [0.0, 0.0, 0.0]  # Example coordinates in meters
-        point_b = [0.2, 0.2, 0.5] # Example coordinates in meters
+        point_b = [0.2, 0.2, 0.5]  # Example coordinates in meters
 
         # Move the arm from point A to point B
         move_from_a_to_b(point_a, point_b)
