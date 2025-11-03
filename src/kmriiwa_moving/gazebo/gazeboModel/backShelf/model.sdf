@@ -1,0 +1,374 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- One-layer metal platform with correct corner triangle brackets -->
+  <!-- Overall: 85.5×59.5×40.5 in -> 2.1717 × 1.5113 × 1.0287 m -->
+
+  <model name="metal_platform_85p5x59p5x40p5">
+    <static>true</static>
+    <link name="shelf">
+
+      <!-- ===== Constants (m) =====
+           deck_thk = 0.0254
+           H = 1.0287
+           hx = 1.08585 ; hy = 0.75565
+           post = 0.0508 ; post_half = 0.0254
+           post centers: (±1.06045, ±0.73025)
+           deck underside z_top = H - deck_thk = 1.0033
+           deck center z = H - deck_thk/2 = 1.0160
+           inner faces: xR= 1.03505 ; xL= -1.03505 ; yF= 0.70485 ; yB= -0.70485
+           cleat: 0.40 run × 0.05 thick × 0.08 tall ; z_cleat = 1.0033 - 0.04 = 0.9633
+           diagonal: run = 0.40 ; drop = 0.30 ; len = 0.50
+                     angle = atan2(0.30,0.40) = 0.6435011088 rad
+           diagonal z_mid = z_top - drop/2 = 1.0033 - 0.15 = 0.8533
+      -->
+
+      <!-- ===== Top deck ===== -->
+      <visual name="deck_vis">
+        <pose>0 0 1.0160 0 0 0</pose>
+        <geometry><box><size>2.1717 1.5113 0.0254</size></box></geometry>
+        <material>
+          <ambient>0.35 0.35 0.37 1</ambient>
+          <diffuse>0.55 0.55 0.58 1</diffuse>
+          <specular>0.4 0.4 0.4 1</specular>
+        </material>
+      </visual>
+      <collision name="deck_col">
+        <pose>0 0 1.0160 0 0 0</pose>
+        <geometry><box><size>2.1717 1.5113 0.0254</size></box></geometry>
+      </collision>
+
+      <!-- ===== Corner posts ===== -->
+      <visual name="post_fr_vis">
+        <pose> 1.06045  0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.28 0.28 0.30 1</diffuse></material>
+      </visual>
+      <collision name="post_fr_col">
+        <pose> 1.06045  0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+      </collision>
+
+      <visual name="post_fl_vis">
+        <pose>-1.06045  0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.28 0.28 0.30 1</diffuse></material>
+      </visual>
+      <collision name="post_fl_col">
+        <pose>-1.06045  0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+      </collision>
+
+      <visual name="post_br_vis">
+        <pose> 1.06045 -0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.28 0.28 0.30 1</diffuse></material>
+      </visual>
+      <collision name="post_br_col">
+        <pose> 1.06045 -0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+      </collision>
+
+      <visual name="post_bl_vis">
+        <pose>-1.06045 -0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.28 0.28 0.30 1</diffuse></material>
+      </visual>
+      <collision name="post_bl_col">
+        <pose>-1.06045 -0.73025 0.50165 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 1.0033</size></box></geometry>
+      </collision>
+
+      <!-- ===== Triangle brackets (cleat + diagonal) at each top corner ===== -->
+
+      <!-- ---- Front-right (+X,+Y) ---- -->
+      <!-- Cleats -->
+      <visual name="cleat_FR_alongX">
+        <pose>0.83505 0.70485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.40 0.05 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <visual name="cleat_FR_alongY">
+        <pose>1.03505 0.50485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.05 0.40 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <!-- Diagonals -->
+<!-- Front-right (+X,+Y), XZ brace (flipped) -->
+<visual name="diag_FR_XZ">
+  <pose>0.83505 0.70485 0.8533 0 -0.6435011088 3.14159265359</pose>
+  <geometry><box><size>0.50 0.05 0.05</size></box></geometry>
+  <material>
+    <ambient>0.22 0.22 0.24 1</ambient>
+    <diffuse>0.45 0.45 0.48 1</diffuse>
+  </material>
+</visual>
+
+      <visual name="diag_FR_YZ">
+        <!-- yaw 0, roll -angle -->
+        <pose>1.03505 0.50485 0.8533 -0.6435011088 0 0</pose>
+        <geometry><box><size>0.05 0.50 0.05</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+
+      <!-- ---- Front-left (-X,+Y) ---- -->
+      <visual name="diag_FL_XZ">
+  <pose>-0.83505 0.70485 0.8533 0 -0.6435 0</pose>
+  <geometry><box><size>0.50 0.05 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+<visual name="diag_FL_YZ">
+  <!-- along +Y at the front, roll down by -angle -->
+  <pose>-1.03505 0.50485 0.8533 -0.6435011088 0 0</pose>
+  <geometry><box><size>0.05 0.50 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+      <visual name="diag_FL_XZ">
+  <pose>-0.83505 0.70485 0.8533 0 -0.6435 0</pose>
+  <geometry><box><size>0.50 0.05 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+      <visual name="diag_FL_YZ">
+  <pose>-1.03505 0.50485 0.8533 -0.6435 0 3.1416</pose>
+  <geometry><box><size>0.05 0.50 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+
+      <!-- ---- Back-right (+X,-Y) ---- -->
+      <visual name="cleat_BR_alongX">
+        <pose>0.83505 -0.70485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.40 0.05 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <visual name="cleat_BR_alongY">
+        <pose>1.03505 -0.50485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.05 0.40 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <visual name="diag_BR_XZ">
+  <pose>0.83505 -0.70485 0.8533 0 -0.6435 3.1416</pose>
+  <geometry><box><size>0.50 0.05 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+      <visual name="diag_BR_YZ">
+        <!-- back side: yaw = pi to flip Y, same roll -angle -->
+        <pose>1.03505 -0.50485 0.8533 -0.6435011088 0 3.14159265359</pose>
+        <geometry><box><size>0.05 0.50 0.05</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+
+      <!-- ---- Back-left (-X,-Y) ---- -->
+      <visual name="cleat_BL_alongX">
+        <pose>-0.83505 -0.70485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.40 0.05 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <visual name="cleat_BL_alongY">
+        <pose>-1.03505 -0.50485 0.9633 0 0 0</pose>
+        <geometry><box><size>0.05 0.40 0.08</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+      <visual name="diag_BL_XZ">
+  <pose>-0.83505 -0.70485 0.8533 0 -0.6435 0</pose>
+  <geometry><box><size>0.50 0.05 0.05</size></box></geometry>
+  <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+</visual>
+      <visual name="diag_BL_YZ">
+        <!-- back side: yaw = pi, roll -angle -->
+        <pose>-1.03505 -0.50485 0.8533 -0.6435011088 0 3.14159265359</pose>
+        <geometry><box><size>0.05 0.50 0.05</size></box></geometry>
+        <material><ambient>0.22 0.22 0.24 1</ambient><diffuse>0.45 0.45 0.48 1</diffuse></material>
+      </visual>
+
+      <!-- (Optional collisions for cleats/diagonals—add like visuals if you need physics) -->
+      <!-- ================================================================== -->
+      <!-- Surrounding glass on top of deck (height = 38.6 in = 0.98044 m)   -->
+      <!-- Deck top surface z = 1.0287 (from your model)                      -->
+      <!-- Glass center z = 1.0287 + 0.98044/2 = 1.51892                      -->
+      <!-- Glass thickness: 0.01 m                                           -->
+      <!-- Frame (posts/rails): square 0.03 m tubes, inside the footprint     -->
+      <!-- Half sizes of deck: hx=1.08585, hy=0.75565                         -->
+      <!-- ================================================================== -->
+
+      <!-- ---- Glass panels (flush with deck edges) ---- -->
+      <!-- Front glass (+Y) -->
+      <visual name="glass_front_vis">
+        <pose>0 0.75065 1.51892 0 0 0</pose> <!-- y = hy - t/2 -->
+        <geometry><box><size>2.1717 0.01 0.98044</size></box></geometry>
+        <material>
+          <ambient>0.7 0.8 0.9 0.5</ambient>
+          <diffuse>0.8 0.9 1.0 0.5</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <transparency>0.4</transparency>
+        </material>
+      </visual>
+      <collision name="glass_front_col">
+        <pose>0 0.75065 1.51892 0 0 0</pose>
+        <geometry><box><size>2.1717 0.01 0.98044</size></box></geometry>
+      </collision>
+
+      <!-- Back glass (-Y) -->
+      <visual name="glass_back_vis">
+        <pose>0 -0.75065 1.51892 0 0 0</pose> <!-- y = -hy + t/2 -->
+        <geometry><box><size>2.1717 0.01 0.98044</size></box></geometry>
+        <material>
+          <ambient>0.7 0.8 0.9 0.5</ambient>
+          <diffuse>0.8 0.9 1.0 0.5</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <transparency>0.4</transparency>
+        </material>
+      </visual>
+      <collision name="glass_back_col">
+        <pose>0 -0.75065 1.51892 0 0 0</pose>
+        <geometry><box><size>2.1717 0.01 0.98044</size></box></geometry>
+      </collision>
+
+      <!-- Right glass (+X) -->
+      <visual name="glass_right_vis">
+        <pose>1.08085 0 1.51892 0 0 1.57079632679</pose> <!-- x = hx - t/2 -->
+        <geometry><box><size>1.5113 0.01 0.98044</size></box></geometry>
+        <material>
+          <ambient>0.7 0.8 0.9 0.5</ambient>
+          <diffuse>0.8 0.9 1.0 0.5</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <transparency>0.4</transparency>
+        </material>
+      </visual>
+      <collision name="glass_right_col">
+        <pose>1.08085 0 1.51892 0 0 1.57079632679</pose>
+        <geometry><box><size>1.5113 0.01 0.98044</size></box></geometry>
+      </collision>
+
+      <!-- Left glass (-X) -->
+      <visual name="glass_left_vis">
+        <pose>-1.08085 0 1.51892 0 0 1.57079632679</pose> <!-- x = -hx + t/2 -->
+        <geometry><box><size>1.5113 0.01 0.98044</size></box></geometry>
+        <material>
+          <ambient>0.7 0.8 0.9 0.5</ambient>
+          <diffuse>0.8 0.9 1.0 0.5</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <transparency>0.4</transparency>
+        </material>
+      </visual>
+      <collision name="glass_left_col">
+        <pose>-1.08085 0 1.51892 0 0 1.57079632679</pose>
+        <geometry><box><size>1.5113 0.01 0.98044</size></box></geometry>
+      </collision>
+
+      <!-- ---- Frame: 0.03 m square tubes (inside the footprint) ---- -->
+      <!-- Corner posts (run from deck top to glass top) -->
+      <!-- post center z = deck top (1.0287) + height/2 = 1.51892 -->
+      <visual name="frame_post_FR">
+        <pose> 1.07085  0.74565 1.51892 0 0 0</pose>
+        <geometry><box><size>0.03 0.03 0.98044</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_post_FL">
+        <pose>-1.07085  0.74565 1.51892 0 0 0</pose>
+        <geometry><box><size>0.03 0.03 0.98044</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_post_BR">
+        <pose> 1.07085 -0.74565 1.51892 0 0 0</pose>
+        <geometry><box><size>0.03 0.03 0.98044</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_post_BL">
+        <pose>-1.07085 -0.74565 1.51892 0 0 0</pose>
+        <geometry><box><size>0.03 0.03 0.98044</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+
+      <!-- Top rails (tie posts at the top) -->
+      <!-- z_top = deck top + height - frame/2 = 1.0287 + 0.98044 - 0.015 = 1.99414 -->
+      <visual name="frame_top_front">
+        <pose>0 0.74065 1.99414 0 0 0</pose>
+        <geometry><box><size>2.1117 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_top_back">
+        <pose>0 -0.74065 1.99414 0 0 0</pose>
+        <geometry><box><size>2.1117 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_top_right">
+        <pose>1.07085 0 1.99414 0 0 1.57079632679</pose>
+        <geometry><box><size>1.4513 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_top_left">
+        <pose>-1.07085 0 1.99414 0 0 1.57079632679</pose>
+        <geometry><box><size>1.4513 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+
+      <!-- Bottom rails (sit just above the deck top, help “hold” the glass) -->
+      <!-- z_bot = deck top + frame/2 = 1.0287 + 0.015 = 1.0437 -->
+      <visual name="frame_bot_front">
+        <pose>0 0.74065 1.0437 0 0 0</pose>
+        <geometry><box><size>2.1117 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_bot_back">
+        <pose>0 -0.74065 1.0437 0 0 0</pose>
+        <geometry><box><size>2.1117 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_bot_right">
+        <pose>1.07085 0 1.0437 0 0 1.57079632679</pose>
+        <geometry><box><size>1.4513 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+      <visual name="frame_bot_left">
+        <pose>-1.07085 0 1.0437 0 0 1.57079632679</pose>
+        <geometry><box><size>1.4513 0.03 0.03</size></box></geometry>
+        <material><ambient>0.2 0.2 0.22 1</ambient><diffuse>0.32 0.32 0.35 1</diffuse></material>
+      </visual>
+
+
+      <!-- Side crossbar on the 59.5" side (RIGHT / +X) -->
+      <!-- Depth between inner faces: 59.5" - 2*2" = 55.5" -> 1.4605 m -->
+      <!-- Height from floor: 14.5" -> 0.3683 m -->
+      <!-- Leg X center (+X side): 1.06045 m -->
+      <visual name="side_bar_right_vis">
+        <pose>1.06045 0 0.3683 0 0 1.57079632679</pose>
+        <geometry>
+          <!-- length along Y, thickness ~0.04 m, height 0.06 m -->
+          <box><size>1.4605 0.04 0.06</size></box>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.22 1</ambient>
+          <diffuse>0.32 0.32 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+
+      <collision name="side_bar_right_col">
+        <pose>1.06045 0 0.3683 0 0 1.57079632679</pose>
+        <geometry>
+          <box><size>1.4605 0.04 0.06</size></box>
+        </geometry>
+      </collision>
+
+      <!-- Side crossbar on the 59.5" side (LEFT / -X) -->
+      <visual name="side_bar_left_vis">
+        <pose>-1.06045 0 0.3683 0 0 1.57079632679</pose>
+        <geometry>
+          <box><size>1.4605 0.04 0.06</size></box>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.22 1</ambient>
+          <diffuse>0.32 0.32 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+
+      <collision name="side_bar_left_col">
+        <pose>-1.06045 0 0.3683 0 0 1.57079632679</pose>
+        <geometry>
+          <box><size>1.4605 0.04 0.06</size></box>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>

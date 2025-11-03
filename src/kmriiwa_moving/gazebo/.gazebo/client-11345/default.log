@@ -1,0 +1,10 @@
+Gazebo multi-robot simulator, version 11.15.1
+Copyright (C) 2012 Open Source Robotics Foundation.
+Released under the Apache 2 License.
+http://gazebosim.org
+
+
+(1760546908 9454954) [Msg] Waiting for master.
+(1760546908 14079287) [Msg] Connected to gazebo master @ http://127.0.0.1:11345
+(1760546908 14114743) [Msg] Publicized address: 10.32.126.66
+(1760546908 14283718) Loaded .ini file from: "/home/cais/.gazebo/gui.ini"

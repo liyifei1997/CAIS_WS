@@ -26,8 +26,8 @@ if __name__ == '__main__':
         rospy.init_node('base_control_script', anonymous=True)
 
         # Define the parameters for the movement
-        linear_speed = -0.2  # meters per second
-        distance = -1.0  # meters
+        linear_speed = 0.2  # meters per second
+        distance = 1.0  # meters
         duration = distance / linear_speed  # seconds
 
         # Move 1 meter in the x direction

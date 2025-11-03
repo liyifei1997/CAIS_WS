@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="standing_desk_l_legs_shelf_backface">
+    <static>false</static>
+    <link name="desk">
+      <pose>0 0 0.02 0 0 0</pose>
+      <gravity>true</gravity><self_collide>false</self_collide><kinematic>false</kinematic>
+
+      <inertial>
+        <mass>70</mass>
+        <inertia><ixx>14</ixx><iyy>26</iyy><izz>38</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+      </inertial>
+
+      <!-- Colors -->
+      <visual name="mat_wood"><geometry><box><size>0.001 0.001 0.001</size></box></geometry>
+        <material><ambient>0.45 0.30 0.15 1</ambient><diffuse>0.55 0.38 0.20 1</diffuse></material></visual>
+      <visual name="mat_iron"><geometry><box><size>0.001 0.001 0.001</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+
+      <!-- Desktop (74×28.5 in → 1.8796×0.7239 m; height 0.7366 m; top thickness 0.0254) -->
+      <collision name="top_collision">
+        <pose>0 0 0.7239 0 0 0</pose>
+        <geometry><box><size>1.8796 0.7239 0.0254</size></box></geometry>
+        <surface><friction><ode><mu>0.9</mu><mu2>0.9</mu2></ode></friction></surface>
+      </collision>
+      <visual name="top_visual">
+        <pose>0 0 0.7239 0 0 0</pose>
+        <geometry><box><size>1.8796 0.7239 0.0254</size></box></geometry>
+        <material><ambient>0.45 0.30 0.15 1</ambient><diffuse>0.55 0.38 0.20 1</diffuse></material>
+      </visual>
+
+      <!-- Standing-desk legs (unchanged) -->
+      <!-- Right -->
+      <collision name="legR_foot_collision"><pose>0.70 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.10 0.60 0.02</size></box></geometry></collision>
+      <visual name="legR_foot_visual"><pose>0.70 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.10 0.60 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      <collision name="legR_col_collision"><pose>0.70 0 0.3656 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.6912</size></box></geometry></collision>
+      <visual name="legR_col_visual"><pose>0.70 0 0.3656 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.6912</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      <collision name="legR_top_collision"><pose>0.70 0 0.7012 0 0 0</pose>
+        <geometry><box><size>0.30 0.06 0.02</size></box></geometry></collision>
+      <visual name="legR_top_visual"><pose>0.70 0 0.7012 0 0 0</pose>
+        <geometry><box><size>0.30 0.06 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      <!-- Left -->
+      <collision name="legL_foot_collision"><pose>-0.70 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.10 0.60 0.02</size></box></geometry></collision>
+      <visual name="legL_foot_visual"><pose>-0.70 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.10 0.60 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      <collision name="legL_col_collision"><pose>-0.70 0 0.3656 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.6912</size></box></geometry></collision>
+      <visual name="legL_col_visual"><pose>-0.70 0 0.3656 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.6912</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      <collision name="legL_top_collision"><pose>-0.70 0 0.7012 0 0 0</pose>
+        <geometry><box><size>0.30 0.06 0.02</size></box></geometry></collision>
+      <visual name="legL_top_visual"><pose>-0.70 0 0.7012 0 0 0</pose>
+        <geometry><box><size>0.30 0.06 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+
+      <!-- ===== Shelf (79×14×16 in → 2.0066×0.3556×0.4064) =====
+           Back edge of desktop: y_back = 0.36195 (half of 0.7239)
+           Shelf depth D = 0.3556 → center y so BACK FACE aligns to y_back:
+             y_shelf = y_back - D/2 = 0.36195 - 0.1778 = 0.18415
+           Bottom @ 25 in above tabletop: bottom z center = 1.3816 ; top z center = 1.7680 ; side z center = 1.5748
+      -->
+      <collision name="shelf_bottom_collision">
+        <pose>0 0.18415 1.3816 0 0 0</pose>
+        <geometry><box><size>2.0066 0.3556 0.02</size></box></geometry>
+      </collision>
+      <visual name="shelf_bottom_visual">
+        <pose>0 0.18415 1.3816 0 0 0</pose>
+        <geometry><box><size>2.0066 0.3556 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+      <collision name="shelf_top_collision">
+        <pose>0 0.18415 1.7680 0 0 0</pose>
+        <geometry><box><size>2.0066 0.3556 0.02</size></box></geometry>
+      </collision>
+      <visual name="shelf_top_visual">
+        <pose>0 0.18415 1.7680 0 0 0</pose>
+        <geometry><box><size>2.0066 0.3556 0.02</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+      <collision name="shelf_side_L_collision">
+        <pose>-0.9933 0.18415 1.5748 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.4064</size></box></geometry>
+      </collision>
+      <visual name="shelf_side_L_visual">
+        <pose>-0.9933 0.18415 1.5748 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.4064</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+      <collision name="shelf_side_R_collision">
+        <pose>0.9933 0.18415 1.5748 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.4064</size></box></geometry>
+      </collision>
+      <visual name="shelf_side_R_visual">
+        <pose>0.9933 0.18415 1.5748 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.4064</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+
+      <!-- ===== Three full metal connectors at the BACK of the desktop =====
+           Back edge y_back = 0.36195. Back panel centered slightly inboard so its back face hits y_back.
+           Side panels run full shelf depth; their back edges also land at y_back.
+           Panel height = 0.635 ; center z = 1.0541
+      -->
+      <!-- Back panel across desktop width -->
+      <collision name="connector_back_collision">
+        <pose>0 0.35195 1.0541 0 0 0</pose> <!-- center = y_back - 0.01 ; thickness 0.02 -->
+        <geometry><box><size>1.8796 0.02 0.635</size></box></geometry>
+      </collision>
+      <visual name="connector_back_visual">
+        <pose>0 0.35195 1.0541 0 0 0</pose>
+        <geometry><box><size>1.8796 0.02 0.635</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+
+      <!-- Left & right side panels (center on shelf depth) -->
+      <collision name="connector_left_collision">
+        <pose>-0.9398 0.18415 1.0541 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.635</size></box></geometry>
+      </collision>
+      <visual name="connector_left_visual">
+        <pose>-0.9398 0.18415 1.0541 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.635</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+
+      <collision name="connector_right_collision">
+        <pose>0.9398 0.18415 1.0541 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.635</size></box></geometry>
+      </collision>
+      <visual name="connector_right_visual">
+        <pose>0.9398 0.18415 1.0541 0 0 0</pose>
+        <geometry><box><size>0.02 0.3556 0.635</size></box></geometry>
+        <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

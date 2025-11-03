@@ -1,0 +1,276 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="classroom_20x15x8">
+    <!-- Dynamic so you can nudge it in sim if needed -->
+    <static>false</static>
+
+    <!-- Single link containing floor, ceiling, walls, windows -->
+    <link name="room">
+      <!-- Small lift to avoid spawn tunneling -->
+      <pose>0 0 0.01 0 0 0</pose>
+
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <kinematic>false</kinematic>
+
+      <!-- A modest mass/inertia to keep physics stable (treat as heavy structure) -->
+      <inertial>
+        <mass>5000</mass>
+        <inertia>
+          <ixx>800</ixx>
+          <iyy>1200</iyy>
+          <izz>1900</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <!-- ============== Materials ============== -->
+      <!-- Subtle classroom colors -->
+      <visual name="__palette__">
+        <geometry><box><size>0.001 0.001 0.001</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Colors we'll reuse via inline copies -->
+      <!-- Off-white walls -->
+      <!-- Light gray floor -->
+      <!-- Slightly darker ceiling -->
+      <!-- Blue-ish glass for windows -->
+
+      <!-- ============== Floor (20 x 15 x 0.2) at z=0.1 ============== -->
+      <collision name="floor_collision">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry><box><size>20 15 0.2</size></box></geometry>
+        <surface><friction><ode><mu>1.0</mu><mu2>1.0</mu2></ode></friction></surface>
+      </collision>
+      <visual name="floor_visual">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry><box><size>20 15 0.2</size></box></geometry>
+        <material>
+          <ambient>0.85 0.85 0.85 1</ambient>
+          <diffuse>0.85 0.85 0.85 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- ============== Ceiling (20 x 15 x 0.2) at z=7.9 ============== -->
+      <collision name="ceiling_collision">
+        <pose>0 0 7.9 0 0 0</pose>
+        <geometry><box><size>20 15 0.2</size></box></geometry>
+      </collision>
+      <visual name="ceiling_visual">
+        <pose>0 0 7.9 0 0 0</pose>
+        <geometry><box><size>20 15 0.2</size></box></geometry>
+        <material>
+          <ambient>0.90 0.90 0.90 1</ambient>
+          <diffuse>0.90 0.90 0.90 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Wall thickness -->
+      <!-- t = 0.2; half height = 4.0 -->
+      <!-- Long walls run along X at y= ±(7.5 - 0.1) = ±7.4 -->
+      <!-- Short walls run along Y at x= ±(10 - 0.1) = ±9.9 -->
+
+      <!-- ============== WALL 1 (+Y) with a door opening ============== -->
+      <!-- Full-height left segment (from -10 to -9.5 along X), size 0.5 x 0.2 x 8 -->
+      <collision name="wall1_left_collision">
+        <pose>-9.75 7.4 4 0 0 0</pose>
+        <geometry><box><size>0.5 0.2 8</size></box></geometry>
+      </collision>
+      <visual name="wall1_left_visual">
+        <pose>-9.75 7.4 4 0 0 0</pose>
+        <geometry><box><size>0.5 0.2 8</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Lintel above door (spanning above 2.2m) width 1.2, height 5.8 -->
+      <collision name="wall1_lintel_collision">
+        <pose>-8.9 7.4 5.1 0 0 0</pose>
+        <geometry><box><size>1.2 0.2 5.8</size></box></geometry>
+      </collision>
+      <visual name="wall1_lintel_visual">
+        <pose>-8.9 7.4 5.1 0 0 0</pose>
+        <geometry><box><size>1.2 0.2 5.8</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Right segment after door (from -8.3 to +10), size 18.3 x 0.2 x 8 -->
+      <collision name="wall1_right_collision">
+        <pose>0.85 7.4 4 0 0 0</pose>
+        <geometry><box><size>18.3 0.2 8</size></box></geometry>
+      </collision>
+      <visual name="wall1_right_visual">
+        <pose>0.85 7.4 4 0 0 0</pose>
+        <geometry><box><size>18.3 0.2 8</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- (Door opening is the gap: 1.2m wide, 2.2m tall, centered at x=-8.9) -->
+
+      <!-- ============== WALL 3 (-Y) solid ============== -->
+      <collision name="wall3_collision">
+        <pose>0 -7.4 4 0 0 0</pose>
+        <geometry><box><size>20 0.2 8</size></box></geometry>
+      </collision>
+      <visual name="wall3_visual">
+        <pose>0 -7.4 4 0 0 0</pose>
+        <geometry><box><size>20 0.2 8</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- ============== WALL 2 (+X) with 3 windows (4m x 6m) ============== -->
+      <!-- Bottom spandrel: 0–1m -->
+      <collision name="wall2_bottom_collision">
+        <pose>9.9 0 0.5 0 0 0</pose>
+        <geometry><box><size>0.2 15 1.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_bottom_visual">
+        <pose>9.9 0 0.5 0 0 0</pose>
+        <geometry><box><size>0.2 15 1.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Top spandrel: 7–8m -->
+      <collision name="wall2_top_collision">
+        <pose>9.9 0 7.5 0 0 0</pose>
+        <geometry><box><size>0.2 15 1.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_top_visual">
+        <pose>9.9 0 7.5 0 0 0</pose>
+        <geometry><box><size>0.2 15 1.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Middle band (1–7m): four vertical mullions (0.75m each) to create 3 window openings -->
+      <!-- Gap width g = 0.75m; positions along Y: -7.125, -2.375, +2.375, +7.125 -->
+      <collision name="wall2_mullion_left_margin_collision">
+        <pose>9.9 -7.125 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_mullion_left_margin_visual">
+        <pose>9.9 -7.125 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall2_mullion_mid_left_collision">
+        <pose>9.9 -2.375 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_mullion_mid_left_visual">
+        <pose>9.9 -2.375 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall2_mullion_mid_right_collision">
+        <pose>9.9 2.375 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_mullion_mid_right_visual">
+        <pose>9.9 2.375 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall2_mullion_right_margin_collision">
+        <pose>9.9 7.125 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+      </collision>
+      <visual name="wall2_mullion_right_margin_visual">
+        <pose>9.9 7.125 4 0 0 0</pose>
+        <geometry><box><size>0.2 0.75 6.0</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Three window glass panels (collidable); each 4m wide, 6m tall; centers at y=-4.75, 0, +4.75 -->
+      <!-- Thickness 0.02m -->
+      <collision name="window_1_collision">
+        <pose>9.9 -4.75 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+      </collision>
+      <visual name="window_1_visual">
+        <pose>9.9 -4.75 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+        <material>
+          <ambient>0.6 0.8 1.0 0.4</ambient>
+          <diffuse>0.6 0.8 1.0 0.4</diffuse>
+        </material>
+      </visual>
+
+      <collision name="window_2_collision">
+        <pose>9.9 0 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+      </collision>
+      <visual name="window_2_visual">
+        <pose>9.9 0 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+        <material>
+          <ambient>0.6 0.8 1.0 0.4</ambient>
+          <diffuse>0.6 0.8 1.0 0.4</diffuse>
+        </material>
+      </visual>
+
+      <collision name="window_3_collision">
+        <pose>9.9 4.75 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+      </collision>
+      <visual name="window_3_visual">
+        <pose>9.9 4.75 4 0 0 0</pose>
+        <geometry><box><size>0.02 4.0 6.0</size></box></geometry>
+        <material>
+          <ambient>0.6 0.8 1.0 0.4</ambient>
+          <diffuse>0.6 0.8 1.0 0.4</diffuse>
+        </material>
+      </visual>
+
+      <!-- ============== WALL 4 (-X) solid ============== -->
+      <collision name="wall4_collision">
+        <pose>-9.9 0 4 0 0 0</pose>
+        <geometry><box><size>0.2 15 8</size></box></geometry>
+      </collision>
+      <visual name="wall4_visual">
+        <pose>-9.9 0 4 0 0 0</pose>
+        <geometry><box><size>0.2 15 8</size></box></geometry>
+        <material>
+          <ambient>0.95 0.95 0.95 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

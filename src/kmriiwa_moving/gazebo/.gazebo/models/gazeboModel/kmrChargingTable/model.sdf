@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- Units: meters (1 in = 0.0254 m)
+       Top: 36.7 in × 30 in  -> 0.93218 m × 0.76200 m
+       Height: 30 in         -> 0.76200 m
+       Top thickness (assumed): 1.5 in -> 0.03810 m
+       Leg height = total height - top thickness = 0.72390 m
+
+       T-leg geometry (each):
+         - Upright post: 2" x 2" square (0.0508 m × 0.0508 m), height = 0.71120 m
+           (leg_h - foot_thk)
+         - Foot (the "T" crossbar): 18" long × 3" wide × 0.5" thick
+           -> 0.45720 m × 0.07620 m × 0.01270 m
+         - Two legs placed along X near the ends; centered in Y.
+
+       Positions (precomputed):
+         hx = 0.93218 / 2 = 0.46609
+         hy = 0.76200 / 2 = 0.38100
+         inset_x = 0.15240 (6") from each short end
+         leg_x = ±(hx - inset_x) = ±0.31369
+         post_h = 0.72390 - 0.01270 = 0.71120
+         top_z_center = leg_h + top_thk/2 = 0.74295
+         post_z_center = foot_thk + post_h/2 = 0.01270 + 0.35560 = 0.36830
+         foot_z_center = foot_thk/2 = 0.00635
+  -->
+  <model name="table_36p7x30_Tlegs">
+    <static>true</static>
+
+    <link name="table">
+      <!-- Top (box) -->
+      <visual name="top_vis">
+        <pose>0 0 0.74295 0 0 0</pose>
+        <geometry><box><size>0.93218 0.762 0.0381</size></box></geometry>
+        <material>
+          <ambient>0.25 0.18 0.12 1</ambient>
+          <diffuse>0.55 0.38 0.22 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="top_col">
+        <pose>0 0 0.74295 0 0 0</pose>
+        <geometry><box><size>0.93218 0.762 0.0381</size></box></geometry>
+      </collision>
+
+      <!-- ===== T-Leg A (at +X) ===== -->
+      <!-- Foot -->
+      <visual name="legA_foot_vis">
+        <pose>0.31369 0 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0762 0.4572 0.0127</size></box></geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+      <collision name="legA_foot_col">
+        <pose>0.31369 0 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0762 0.4572 0.0127</size></box></geometry>
+      </collision>
+
+      <!-- Upright post -->
+      <visual name="legA_post_vis">
+        <pose>0.31369 0 0.36830 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 0.7112</size></box></geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+      <collision name="legA_post_col">
+        <pose>0.31369 0 0.36830 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 0.7112</size></box></geometry>
+      </collision>
+
+      <!-- ===== T-Leg B (at -X) ===== -->
+      <!-- Foot -->
+      <visual name="legB_foot_vis">
+        <pose>-0.31369 0 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0762 0.4572 0.0127</size></box></geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+      <collision name="legB_foot_col">
+        <pose>-0.31369 0 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0762 0.4572 0.0127</size></box></geometry>
+      </collision>
+
+      <!-- Upright post -->
+      <visual name="legB_post_vis">
+        <pose>-0.31369 0 0.36830 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 0.7112</size></box></geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.30 0.30 0.30 1</specular>
+        </material>
+      </visual>
+      <collision name="legB_post_col">
+        <pose>-0.31369 0 0.36830 0 0 0</pose>
+        <geometry><box><size>0.0508 0.0508 0.7112</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

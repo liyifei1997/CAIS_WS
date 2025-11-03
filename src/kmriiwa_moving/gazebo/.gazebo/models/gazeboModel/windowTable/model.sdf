@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="wide_leg_table">
+    <static>true</static>
+
+    <link name="table">
+      <!-- ========== Tabletop ========== -->
+      <collision name="top_col">
+        <pose>0 0 0.99695 0 0 0</pose>
+        <geometry><box><size>1.8161 0.7239 0.0381</size></box></geometry>
+      </collision>
+      <visual name="top_vis">
+        <pose>0 0 0.99695 0 0 0</pose>
+        <geometry><box><size>1.8161 0.7239 0.0381</size></box></geometry>
+        <material>
+          <diffuse>0.55 0.42 0.30 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- ========== Wide End-Legs ========== -->
+      <collision name="leg_left_col">
+        <pose>-0.889 0 0.48895 0 0 0</pose>
+        <geometry><box><size>0.0381 0.7239 0.9779</size></box></geometry>
+      </collision>
+      <visual name="leg_left_vis">
+        <pose>-0.889 0 0.48895 0 0 0</pose>
+        <geometry><box><size>0.0381 0.7239 0.9779</size></box></geometry>
+        <material><diffuse>0.45 0.36 0.26 1</diffuse></material>
+      </visual>
+
+      <collision name="leg_right_col">
+        <pose>0.889 0 0.48895 0 0 0</pose>
+        <geometry><box><size>0.0381 0.7239 0.9779</size></box></geometry>
+      </collision>
+      <visual name="leg_right_vis">
+        <pose>0.889 0 0.48895 0 0 0</pose>
+        <geometry><box><size>0.0381 0.7239 0.9779</size></box></geometry>
+        <material><diffuse>0.45 0.36 0.26 1</diffuse></material>
+      </visual>
+
+      <!-- ========== Drawer Cabinet ========== -->
+      <collision name="cabinet_col">
+        <pose>-0.566 -0.06985 0.48895 0 0 0</pose>
+        <geometry><box><size>0.508 0.5842 0.9779</size></box></geometry>
+      </collision>
+      <visual name="cabinet_vis">
+        <pose>-0.566 -0.06985 0.48895 0 0 0</pose>
+        <geometry><box><size>0.508 0.5842 0.9779</size></box></geometry>
+        <material><diffuse>0.35 0.35 0.35 1</diffuse></material>
+      </visual>
+
+      <!-- Drawer slice height = 0.19558 -->
+      <!-- Drawer front y = -0.36195, handle proud further at y = -0.30195 -->
+
+      <!-- Drawer 1 -->
+      <visual name="drawer1_front_vis">
+        <pose>-0.566 -0.36195 0.09779 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.19558</size></box></geometry>
+        <material><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+            <visual name="drawer1_handle_vis">
+        <pose>-0.566 -0.36195 0.09779 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.08</size></box></geometry>
+        <material><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+
+      <!-- Drawer 2 -->
+      <visual name="drawer2_front_vis">
+        <pose>-0.566 -0.36195 0.29337 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.19558</size></box></geometry>
+        <material><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+      <visual name="drawer2_handle_vis">
+        <pose>-0.566 -0.36195 0.29337 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.08</size></box></geometry>
+        <material><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+      <!-- Drawer 3 -->
+      <visual name="drawer3_front_vis">
+        <pose>-0.566 -0.36195 0.48895 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.19558</size></box></geometry>
+        <material><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+      <visual name="drawer3_handle_vis">
+        <pose>-0.566 -0.36195 0.48895 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.08</size></box></geometry>
+        <material><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+
+      <!-- Drawer 4 -->
+      <visual name="drawer4_front_vis">
+        <pose>-0.566 -0.36195 0.68453 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.19558</size></box></geometry>
+        <material><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+      <visual name="drawer4_handle_vis">
+        <pose>-0.566 -0.36195 0.68453 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.08</size></box></geometry>
+        <material><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+
+      <!-- Drawer 5 -->
+      <visual name="drawer5_front_vis">
+        <pose>-0.566 -0.36195 0.88011 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.19558</size></box></geometry>
+        <material><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+       <visual name="drawer5_handle_vis">
+        <pose>-0.566 -0.36195 0.88011 0 0 0</pose>
+        <geometry><box><size>0.508 0.02 0.08</size></box></geometry>
+        <material><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

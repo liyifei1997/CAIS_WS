@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- Units: meters (1 in = 0.0254 m)
+       Top: 48 in × 24 in  -> 1.2192 m × 0.6096 m
+       Height: 30 in       -> 0.7620 m
+       Top thickness: 1.5 in -> 0.0381 m (assumed)
+       Leg diameter: 2 in  -> 0.0508 m (radius 0.0254 m)
+       Leg height = total height - top thickness = 0.7620 - 0.0381 = 0.7239 m
+       Leg inset from edges: 2 in -> 0.0508 m (so legs are slightly inboard)
+       Model origin: table center on the mid-plane; z=0 at table's mid-height.
+  -->
+  <model name="table_24x48x30">
+    <static>true</static>
+
+    <!-- Precomputed helpers (used below in poses):
+         hx = 1.2192/2 = 0.6096
+         hy = 0.6096/2 = 0.3048
+         inset = 0.0508
+         r = 0.0254
+         leg_x = ±(hx - inset - r) = ±0.5334
+         leg_y = ±(hy - inset - r) = ±0.2286
+         leg_z_center = leg_h/2 = 0.7239/2 = 0.36195
+         top_z_center = leg_h + top_thk/2 = 0.7239 + 0.01905 = 0.74295
+    -->
+
+    <link name="table">
+      <!-- Top (box) -->
+      <visual name="top_vis">
+        <pose>0 0 0.74295 0 0 0</pose>
+        <geometry>
+          <box><size>1.2192 0.6096 0.0381</size></box>
+        </geometry>
+        <material>
+          <ambient>0.25 0.18 0.12 1</ambient>
+          <diffuse>0.55 0.38 0.22 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="top_col">
+        <pose>0 0 0.74295 0 0 0</pose>
+        <geometry>
+          <box><size>1.2192 0.6096 0.0381</size></box>
+        </geometry>
+      </collision>
+
+      <!-- Four cylindrical legs -->
+      <!-- Front-right (+X, +Y) -->
+      <visual name="leg_fr_vis">
+        <pose>0.5334 0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <collision name="leg_fr_col">
+        <pose>0.5334 0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <!-- Front-left (-X, +Y) -->
+      <visual name="leg_fl_vis">
+        <pose>-0.5334 0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <collision name="leg_fl_col">
+        <pose>-0.5334 0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <!-- Back-right (+X, -Y) -->
+      <visual name="leg_br_vis">
+        <pose>0.5334 -0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <collision name="leg_br_col">
+        <pose>0.5334 -0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <!-- Back-left (-X, -Y) -->
+      <visual name="leg_bl_vis">
+        <pose>-0.5334 -0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.20 0.20 1</ambient>
+          <diffuse>0.35 0.35 0.35 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <collision name="leg_bl_col">
+        <pose>-0.5334 -0.2286 0.36195 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.0254</radius>
+            <length>0.7239</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

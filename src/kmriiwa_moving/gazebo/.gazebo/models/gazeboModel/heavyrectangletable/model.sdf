@@ -1,0 +1,129 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- Heavy table 60×30 in, 29 in tall -->
+  <!-- Top: 60×30 in -> 1.524×0.762 m, thickness 2.5 in = 0.0635 m -->
+  <!-- Total height 29 in = 0.7366 m ; Leg height = 0.6731 m -->
+  <!-- Legs: round cylinders, diameter 3 in = 0.0762 m ; radius = 0.0381 m -->
+  <!-- Leg centers at tabletop corners (±(hx - r), ±(hy - r)) -->
+  <!-- hx=0.762, hy=0.381 ; so leg centers = (±0.7239, ±0.3429) -->
+  <!-- Aprons under the top, z≈0.6223 ; spans updated for new leg spacing -->
+
+  <model name="heavy_table_60x30x29_rounded_corners">
+    <static>true</static>
+
+    <link name="table">
+
+      <!-- ===== Top (rounded-look) ===== -->
+      <visual name="top_center_vis">
+        <pose>0 0 0.70485 0 0 0</pose>
+        <geometry><box><size>1.3716 0.762 0.0635</size></box></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <visual name="top_end_L_vis">
+        <pose>-0.7239 0 0.70485 0 0 0</pose>
+        <geometry><box><size>0.0762 0.6096 0.0635</size></box></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <visual name="top_end_R_vis">
+        <pose>0.7239 0 0.70485 0 0 0</pose>
+        <geometry><box><size>0.0762 0.6096 0.0635</size></box></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <!-- Four corner cylinders -->
+      <visual name="top_c1_vis">
+        <pose>0.6858 0.3048 0.70485 0 0 0</pose>
+        <geometry><cylinder><radius>0.0762</radius><length>0.0635</length></cylinder></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <visual name="top_c2_vis">
+        <pose>-0.6858 0.3048 0.70485 0 0 0</pose>
+        <geometry><cylinder><radius>0.0762</radius><length>0.0635</length></cylinder></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <visual name="top_c3_vis">
+        <pose>0.6858 -0.3048 0.70485 0 0 0</pose>
+        <geometry><cylinder><radius>0.0762</radius><length>0.0635</length></cylinder></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+      <visual name="top_c4_vis">
+        <pose>-0.6858 -0.3048 0.70485 0 0 0</pose>
+        <geometry><cylinder><radius>0.0762</radius><length>0.0635</length></cylinder></geometry>
+        <material><ambient>0.27 0.21 0.16 1</ambient><diffuse>0.52 0.41 0.31 1</diffuse></material>
+      </visual>
+
+      <collision name="top_col">
+        <pose>0 0 0.70485 0 0 0</pose>
+        <geometry><box><size>1.524 0.762 0.0635</size></box></geometry>
+      </collision>
+
+      <!-- ===== Legs (3" dia) ===== -->
+      <!-- Front-right -->
+      <visual name="leg_fr_vis">
+        <pose>0.7239 0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+      </visual>
+      <collision name="leg_fr_col">
+        <pose>0.7239 0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+      </collision>
+
+      <!-- Front-left -->
+      <visual name="leg_fl_vis">
+        <pose>-0.7239 0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+      </visual>
+      <collision name="leg_fl_col">
+        <pose>-0.7239 0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+      </collision>
+
+      <!-- Back-right -->
+      <visual name="leg_br_vis">
+        <pose>0.7239 -0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+      </visual>
+      <collision name="leg_br_col">
+        <pose>0.7239 -0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+      </collision>
+
+      <!-- Back-left -->
+      <visual name="leg_bl_vis">
+        <pose>-0.7239 -0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+      </visual>
+      <collision name="leg_bl_col">
+        <pose>-0.7239 -0.3429 0.33655 0 0 0</pose>
+        <geometry><cylinder><radius>0.0381</radius><length>0.6731</length></cylinder></geometry>
+      </collision>
+
+      <!-- ===== Aprons (spans updated) ===== -->
+      <!-- Inner spans: X ≈ 1.3716 m, Y ≈ 0.6096 m -->
+      <visual name="apron_front_vis">
+        <pose>0 0.3429 0.6223 0 0 0</pose>
+        <geometry><box><size>1.3716 0.0381 0.1016</size></box></geometry>
+        <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.32 0.32 0.32 1</diffuse></material>
+      </visual>
+      <visual name="apron_back_vis">
+        <pose>0 -0.3429 0.6223 0 0 0</pose>
+        <geometry><box><size>1.3716 0.0381 0.1016</size></box></geometry>
+        <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.32 0.32 0.32 1</diffuse></material>
+      </visual>
+      <visual name="apron_right_vis">
+        <pose>0.7239 0 0.6223 0 0 1.5707963</pose>
+        <geometry><box><size>0.6096 0.0381 0.1016</size></box></geometry>
+        <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.32 0.32 0.32 1</diffuse></material>
+      </visual>
+      <visual name="apron_left_vis">
+        <pose>-0.7239 0 0.6223 0 0 1.5707963</pose>
+        <geometry><box><size>0.6096 0.0381 0.1016</size></box></geometry>
+        <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.32 0.32 0.32 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

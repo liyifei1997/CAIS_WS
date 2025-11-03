@@ -1,0 +1,7 @@
+digraph G {
+"kmriiwa_odom" -> "kmriiwa_base_footprint"[label="Broadcaster: /kmriiwa/publisher\nAverage rate: 10.198 Hz\nMost recent transform: 1745027446.731 ( 5572.514 sec old)\nBuffer length: 5.001 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1745033019.245"[ shape=plaintext ] ;
+ }->"kmriiwa_odom";
+}

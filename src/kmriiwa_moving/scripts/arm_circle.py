@@ -1,6 +1,78 @@
 #!/usr/bin/env python3
 
 import rospy
+from kmriiwa_msgs.msg import JointPosition
+from geometry_msgs.msg import Twist
+
+def move_base(linear_x, linear_y, duration):
+    pub = rospy.Publisher('/kmriiwa/base/command/cmd_vel', Twist, queue_size=10)
+    rospy.sleep(1)
+    rate = rospy.Rate(200)
+    twist = Twist()
+    twist.linear.x = linear_x
+    twist.linear.y = linear_y
+
+    start_time = rospy.Time.now()
+    while (rospy.Time.now() - start_time).to_sec() < duration:
+        rospy.loginfo("Moving base: linear_x = %f, linear_y = %f", linear_x, linear_y)
+        pub.publish(twist)
+        rate.sleep()
+
+    twist.linear.x = 0
+    twist.linear.y = 0
+    rospy.loginfo("Stopping base.")
+    pub.publish(twist)
+
+def move_arm(joint_positions):
+    arm_pub = rospy.Publisher('/kmriiwa/arm/command/JointPosition', JointPosition, queue_size=10)
+    rospy.sleep(1)
+    rate = rospy.Rate(100)
+
+    for pos in joint_positions:
+        pos.header.stamp = rospy.Time.now()
+        arm_pub.publish(pos)
+        rospy.loginfo("Published arm joint positions: %s", pos)
+        rospy.sleep(5)
+
+def main():
+    rospy.init_node('robot_task', anonymous=True)
+
+    # Define joint poses
+    original_pos = JointPosition(a1=0.0, a2=0.0, a3=0.0, a4=0.0, a5=0.0, a6=0.0, a7=0.0)
+    reach_pos = JointPosition(a1=0, a2=1.9, a3=1, a4=0, a5=0, a6=0, a7=0)
+    grab_pos = JointPosition(a1=0, a2=1.9, a3=0, a4=1.5, a5=0, a6=0, a7=0)
+    place_pos = JointPosition(a1=0, a2=1.9, a3=1, a4=0, a5=0, a6=0, a7=0)
+
+    # Step 1: Pick up object at start
+    move_arm([original_pos, reach_pos])
+    rospy.sleep(10)
+    move_arm([reach_pos, grab_pos])
+    rospy.sleep(10)
+
+    # Step 2: Move in rectangle (4 segments)
+    move_base(0.3, 0.0, 4)   # forward
+    rospy.sleep(15)
+    move_base(0.0, -0.3, 3)  # right
+    rospy.sleep(15)
+    move_base(-0.3, 0.0, 4)  # backward
+    rospy.sleep(15)
+    move_base(0.0, 0.3, 3)   # left (back to origin)
+    rospy.sleep(15)
+
+    # Step 3: Place object
+    move_arm([reach_pos, place_pos])
+    rospy.sleep(2)
+    move_arm([place_pos, original_pos])
+
+if __name__ == '__main__':
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("Shutting down robot task.")
+
+
+'''
+import rospy
 import numpy as np
 import math
 import time
@@ -132,3 +204,4 @@ if __name__ == '__main__':
 
     except rospy.ROSInterruptException:
         pass
+'''

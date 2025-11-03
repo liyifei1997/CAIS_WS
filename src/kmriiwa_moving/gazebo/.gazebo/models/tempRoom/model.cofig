@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<model>
+  <name>classroom_brick</name>
+  <version>1.0</version>
+  <sdf version="1.6">model.sdf</sdf>
+  <author>
+    <name>Your Name</name>
+    <email>you@example.com</email>
+  </author>
+  <description>
+    Classroom sized by brick units (~11.8 m × 11.6 m × 5.4 m).
+    Wall 1 (+Y) has a door (88×40 in) at the right corner.
+    Wall 3 (−Y) has three evenly spaced windows (96.5×120 in each).
+  </description>
+</model>

@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- Iron shelf with 3 drawers, grey body, black horizontal handles -->
+
+  <model name="iron_shelf_15x23x28">
+    <static>true</static>
+
+    <link name="shelf">
+
+      <!-- Frame (grey) -->
+      <visual name="frame_vis">
+        <pose>0 0 0.3556 0 0 0</pose>
+        <geometry><box><size>0.3810 0.5842 0.7112</size></box></geometry>
+        <material>
+          <ambient>0.4 0.4 0.4 1</ambient>
+          <diffuse>0.6 0.6 0.6 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <collision name="frame_col">
+        <pose>0 0 0.3556 0 0 0</pose>
+        <geometry><box><size>0.3810 0.5842 0.7112</size></box></geometry>
+      </collision>
+
+      <!-- ================= Drawers ================= -->
+      <!-- Each drawer slightly inset inside frame -->
+      <!-- Sizes: width 0.3556 m, depth 0.5588 m -->
+
+      <!-- Top drawer -->
+      <visual name="drawer_top_vis">
+        <pose>0 0 0.6223 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.1778</size></box></geometry>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+      <collision name="drawer_top_col">
+        <pose>0 0 0.6223 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.1778</size></box></geometry>
+      </collision>
+      <!-- Handle (horizontal black bar) -->
+      <visual name="drawer_top_handle">
+        <pose>0 0.293 0.6223 0 1.5708 0</pose>
+        <geometry><cylinder><radius>0.0127</radius><length>0.1016</length></cylinder></geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Middle drawer -->
+      <visual name="drawer_mid_vis">
+        <pose>0 0 0.4445 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.1778</size></box></geometry>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+      <collision name="drawer_mid_col">
+        <pose>0 0 0.4445 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.1778</size></box></geometry>
+      </collision>
+      <!-- Handle -->
+      <visual name="drawer_mid_handle">
+        <pose>0 0.293 0.4445 0 1.5708 0</pose>
+        <geometry><cylinder><radius>0.0127</radius><length>0.1016</length></cylinder></geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Bottom drawer -->
+      <visual name="drawer_bottom_vis">
+        <pose>0 0 0.1778 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.3556</size></box></geometry>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+      <collision name="drawer_bottom_col">
+        <pose>0 0 0.1778 0 0 0</pose>
+        <geometry><box><size>0.3556 0.5588 0.3556</size></box></geometry>
+      </collision>
+      <!-- Handle -->
+      <visual name="drawer_bottom_handle">
+        <pose>0 0.293 0.1778 0 1.5708 0</pose>
+        <geometry><cylinder><radius>0.0127</radius><length>0.1016</length></cylinder></geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

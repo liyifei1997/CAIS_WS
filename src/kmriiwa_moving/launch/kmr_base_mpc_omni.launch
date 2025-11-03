@@ -1,0 +1,39 @@
+<launch>
+  <!-- 50 Hz -->
+  <param name="kmr_base_mpc_omni/dt" value="0.02"/>
+  <param name="kmr_base_mpc_omni/N"  value="15"/>
+
+  <!-- 速度约束 -->
+  <param name="kmr_base_mpc_omni/vx_max" value="0.6"/>
+  <param name="kmr_base_mpc_omni/vx_min" value="-0.6"/>
+  <param name="kmr_base_mpc_omni/vy_max" value="0.6"/>
+  <param name="kmr_base_mpc_omni/vy_min" value="-0.6"/>
+  <param name="kmr_base_mpc_omni/w_max"  value="1.5"/>
+
+  <!-- 代价权重 -->
+  <param name="kmr_base_mpc_omni/Q_xy"  value="10.0"/>
+  <param name="kmr_base_mpc_omni/Q_th"  value="0.5"/>
+  <param name="kmr_base_mpc_omni/R_vx"  value="0.05"/>
+  <param name="kmr_base_mpc_omni/R_vy"  value="0.08"/>
+  <param name="kmr_base_mpc_omni/R_w"   value="0.05"/>
+  <param name="kmr_base_mpc_omni/Rd_vx" value="0.02"/>
+  <param name="kmr_base_mpc_omni/Rd_vy" value="0.02"/>
+  <param name="kmr_base_mpc_omni/Rd_w"  value="0.02"/>
+
+  <!-- 路点 -->
+  <rosparam param="kmr_base_mpc_omni/waypoints">
+    - [0.0, 0.0]
+    - [1.0, 0.0]
+    - [2.0, 0.0]
+    - [3.0, 0.0]
+    - [3.0, 0.0]
+    - [2.0, 0.0]
+    - [1.0, 0.0]
+  </rosparam>
+
+  <!-- 话题名（与 kmriiwa_ros_stack 保持一致） -->
+  <param name="kmr_base_mpc_omni/odom_topic" value="/kmriiwa/base/state/odom"/>
+  <param name="kmr_base_mpc_omni/cmd_topic"  value="/kmriiwa/base/command/cmd_vel"/>
+
+  <node pkg="your_package" type="kmr_base_mpc_omni.py" name="kmr_base_mpc_omni" output="screen"/>
+</launch>

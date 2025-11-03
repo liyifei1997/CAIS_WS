@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- Units: meters (1 in = 0.0254 m)
+       Single table: 48 in × 24 in × 30 in
+         → 1.2192 m × 0.6096 m × 0.7620 m
+       Top thickness: 1.5 in = 0.0381 m
+       Leg diameter: 2 in = 0.0508 m
+       Leg height = 0.7620 - 0.0381 = 0.7239 m
+       Leg inset from edges: 2 in = 0.0508 m
+       Big table arrangement: two tables touching along their 24 in sides → 48 in × 48 in total
+  -->
+
+  <model name="table_square_48x48">
+    <static>true</static>
+
+    <!-- ================= Table A (centered at +Y/2) ================= -->
+    <link name="tableA">
+      <!-- Tabletop -->
+      <visual name="tableA_top_vis">
+        <pose>0 0.3048 0.74295 0 0 0</pose>
+        <geometry><box><size>1.2192 0.6096 0.0381</size></box></geometry>
+        <material>
+          <ambient>0.25 0.18 0.12 1</ambient>
+          <diffuse>0.55 0.38 0.22 1</diffuse>
+        </material>
+      </visual>
+      <collision name="tableA_top_col">
+        <pose>0 0.3048 0.74295 0 0 0</pose>
+        <geometry><box><size>1.2192 0.6096 0.0381</size></box></geometry>
+      </collision>
+
+      <!-- Legs -->
+      <!-- Precomputed: leg_x = ±0.5334, leg_y = ±0.2286, z=0.36195 -->
+      <visual name="tableA_leg_fr_vis"><pose>0.5334 0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableA_leg_fl_vis"><pose>-0.5334 0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableA_leg_br_vis"><pose>0.5334 0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableA_leg_bl_vis"><pose>-0.5334 0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+
+      <collision name="tableA_leg_fr_col"><pose>0.5334 0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableA_leg_fl_col"><pose>-0.5334 0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableA_leg_br_col"><pose>0.5334 0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableA_leg_bl_col"><pose>-0.5334 0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+    </link>
+
+    <!-- ================= Table B (centered at -Y/2) ================= -->
+    <link name="tableB">
+      <!-- Tabletop -->
+      <visual name="tableB_top_vis">
+        <pose>0 -0.3048 0.74295 0 0 0</pose>
+        <geometry><box><size>1.2192 0.6096 0.0381</size></box></geometry>
+        <material>
+          <ambient>0.25 0.18 0.12 1</ambient>
+          <diffuse>0.55 0.38 0.22 1</diffuse>
+        </material>
+      </visual>
+      <collision name="tableB_top_col">
+        <pose>0 -0.3048 0.74295 0 0 0</pose>
+        <geometry><box><size>1.2192 0.6096 0.0381</size></box></geometry>
+      </collision>
+
+      <!-- Legs -->
+      <visual name="tableB_leg_fr_vis"><pose>0.5334 -0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableB_leg_fl_vis"><pose>-0.5334 -0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableB_leg_br_vis"><pose>0.5334 -0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+      <visual name="tableB_leg_bl_vis"><pose>-0.5334 -0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></visual>
+
+      <collision name="tableB_leg_fr_col"><pose>0.5334 -0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableB_leg_fl_col"><pose>-0.5334 -0.0762 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableB_leg_br_col"><pose>0.5334 -0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+      <collision name="tableB_leg_bl_col"><pose>-0.5334 -0.5334 0.36195 0 0 0</pose><geometry><cylinder><radius>0.0254</radius><length>0.7239</length></cylinder></geometry></collision>
+    </link>
+  </model>
+</sdf>

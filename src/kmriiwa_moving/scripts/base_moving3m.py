@@ -2,46 +2,44 @@
 
 import rospy
 from geometry_msgs.msg import Twist
-import time
 
 def move_base(linear_x, duration):
     pub = rospy.Publisher('/kmriiwa/base/command/cmd_vel', Twist, queue_size=10)
-    rate = rospy.Rate(10)  # 10 Hz
+    rospy.sleep(1)  # Ensure the publisher is properly registered
+    rate = rospy.Rate(10)  # 10 Hz control loop
+
     twist = Twist()
     twist.linear.x = linear_x
 
-    start_time = time.time()
-    while time.time() - start_time < duration:
+    start_time = rospy.Time.now()
+    while (rospy.Time.now() - start_time).to_sec() < duration:
         pub.publish(twist)
         rate.sleep()
 
-    # Stop the robot after moving
+    # Stop the robot
     twist.linear.x = 0
     pub.publish(twist)
 
 if __name__ == '__main__':
     try:
         rospy.init_node('base_control_script', anonymous=True)
+        rospy.sleep(1)  # Ensure ROS setup is complete
 
-        # Define the parameters for the movement
-        linear_speed = 0.3  # meters per second
-        distance = 1.5  # meters
-        duration = distance / linear_speed  # time required to move 3 meters
+        # Define movement parameters
+        linear_speed = 0.2  # meters per second 0.2 /0.4/ 0.6/ 0.8/1.0
+        distance = 2  # meters
+        duration = distance / linear_speed  # Time required to move
 
-        for i in range(100):
-        # Move 3 meters forward in the x direction
-            move_base(linear_speed, duration)
-
-        # Sleep for 1 second before moving back
-            time.sleep(1)
-
-        # Move 3 meters backward in the x direction
+        for i in range(1):
+            rospy.loginfo(f"Iteration {i+1}: Moving forward")
             move_base(-linear_speed, duration)
 
-            time.sleep(1)
+            rospy.sleep(1)  # Pause before moving back
 
-        
-        
+            #rospy.loginfo(f"Iteration {i+1}: Moving backward")
+            #move_base(-linear_speed, duration)
+
+            #rospy.sleep(1)  # Pause before next iteration
 
     except rospy.ROSInterruptException:
-        pass
+        rospy.loginfo("ROS node interrupted, shutting down.")

@@ -1,0 +1,164 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <!-- L-leg table with shelf and rear backboard.
+       Top: 55.5 in × 24.5 in -> 1.4097 × 0.6223 m
+       Height: 25.5 in -> 0.6477 m
+       Top thickness: 1.5 in -> 0.0381 m
+       Leg height to underside of top: 0.6096 m
+
+       Shelf:
+         bottom @ 11.5 in -> 0.2921 m
+         thickness 0.01905 m (3/4")
+         depth 0.2032 m (8")
+         width between posts = 1.05410 m
+         z_center = 0.301625 m
+
+       Backboard (at back/−Y):
+         thickness (Y) = 0.0127 m (1/2")
+         width (X) = 1.05410 m (same as shelf span)
+         height (Z) = (underside top) − (shelf top)
+                     = 0.6096 − (0.2921+0.01905) = 0.29845 m
+         y_center = back edge (−0.2032/2) − thickness/2 = −0.1016 − 0.00635 = −0.10795
+         z_center = (shelf top + underside top)/2 = 0.460375
+  -->
+  <model name="L_leg_table_55p5x24p5x25p5">
+    <static>true</static>
+
+    <link name="table">
+      <!-- Tabletop -->
+      <visual name="top_vis">
+        <pose>0 0 0.62865 0 0 0</pose>
+        <geometry><box><size>1.4097 0.6223 0.0381</size></box></geometry>
+        <material>
+          <ambient>0.25 0.18 0.12 1</ambient>
+          <diffuse>0.55 0.38 0.22 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="top_col">
+        <pose>0 0 0.62865 0 0 0</pose>
+        <geometry><box><size>1.4097 0.6223 0.0381</size></box></geometry>
+      </collision>
+
+            <!-- ===== L-LEG RIGHT (+X) ===== -->
+      <!-- Foot (forward, on floor) -->
+      <visual name="legR_foot_vis">
+        <pose>0.55245 0.1905 0.00635 0 0 0</pose>
+        <geometry>
+          <!-- 1" thickness (0.0254) × 3" width (0.0762) × 15" length (0.3810) -->
+          <box><size>0.0254 0.3810 0.0127</size></box>
+        </geometry>
+      </visual>
+      <collision name="legR_foot_col">
+        <pose>0.55245 0.1905 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0254 0.3810 0.0127</size></box></geometry>
+      </collision>
+
+      <!-- Vertical post -->
+      <visual name="legR_post_vis">
+        <pose>0.55245 0 0.31180 0 0 0</pose>
+        <geometry>
+          <!-- 1" × 2" cross-section, height ~0.5969 -->
+          <box><size>0.0254 0.0508 0.5969</size></box>
+        </geometry>
+      </visual>
+      <collision name="legR_post_col">
+        <pose>0.55245 0 0.31180 0 0 0</pose>
+        <geometry><box><size>0.0254 0.0508 0.5969</size></box></geometry>
+      </collision>
+
+      <!-- Top bracket -->
+      <visual name="legR_bracket_vis">
+        <pose>0.55245 0.1016 0.60325 0 0 0</pose>
+        <geometry>
+          <!-- 1" × 3" × 8" -->
+          <box><size>0.0254 0.2032 0.0127</size></box>
+        </geometry>
+      </visual>
+      <collision name="legR_bracket_col">
+        <pose>0.55245 0.1016 0.60325 0 0 0</pose>
+        <geometry><box><size>0.0254 0.2032 0.0127</size></box></geometry>
+      </collision>
+
+      <!-- ===== L-LEG LEFT (−X) ===== -->
+      <visual name="legL_foot_vis">
+        <pose>-0.55245 0.1905 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0254 0.3810 0.0127</size></box></geometry>
+      </visual>
+      <collision name="legL_foot_col">
+        <pose>-0.55245 0.1905 0.00635 0 0 0</pose>
+        <geometry><box><size>0.0254 0.3810 0.0127</size></box></geometry>
+      </collision>
+
+      <visual name="legL_post_vis">
+        <pose>-0.55245 0 0.31180 0 0 0</pose>
+        <geometry><box><size>0.0254 0.0508 0.5969</size></box></geometry>
+      </visual>
+      <collision name="legL_post_col">
+        <pose>-0.55245 0 0.31180 0 0 0</pose>
+        <geometry><box><size>0.0254 0.0508 0.5969</size></box></geometry>
+      </collision>
+
+      <visual name="legL_bracket_vis">
+        <pose>-0.55245 0.1016 0.60325 0 0 0</pose>
+        <geometry><box><size>0.0254 0.2032 0.0127</size></box></geometry>
+      </visual>
+      <collision name="legL_bracket_col">
+        <pose>-0.55245 0.1016 0.60325 0 0 0</pose>
+        <geometry><box><size>0.0254 0.2032 0.0127</size></box></geometry>
+      </collision>
+
+      <!-- ===== Shelf between posts ===== -->
+      <visual name="shelf_vis">
+        <pose>0 0 0.301625 0 0 0</pose>
+        <geometry><box><size>1.05410 0.2032 0.01905</size></box></geometry>
+        <material>
+          <ambient>0.30 0.22 0.15 1</ambient>
+          <diffuse>0.60 0.44 0.26 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="shelf_col">
+        <pose>0 0 0.301625 0 0 0</pose>
+        <geometry><box><size>1.05410 0.2032 0.01905</size></box></geometry>
+      </collision>
+
+      <!-- ===== Backboard closing the rear of the shelf (at −Y) ===== -->
+      <visual name="shelf_backboard_vis">
+        <pose>0 -0.10795 0.460375 0 0 0</pose>
+        <geometry><box><size>1.05410 0.0127 0.29845</size></box></geometry>
+        <material>
+          <ambient>0.28 0.20 0.14 1</ambient>
+          <diffuse>0.56 0.40 0.24 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="shelf_backboard_col">
+        <pose>0 -0.10795 0.460375 0 0 0</pose>
+        <geometry><box><size>1.05410 0.0127 0.29845</size></box></geometry>
+      </collision>
+            <!-- ===== Extra wood board on top: 45in x 29.5in x 1in ===== -->
+      <!-- Sizes (m): 45"=1.1430, 29.5"=0.7493, 1"=0.0254 -->
+      <!-- Table top upper surface z = 0.6477 ; board center z = 0.6477 + 0.0127 = 0.6604 -->
+      <visual name="top_board_vis">
+        <pose>0 0 0.6604 0 0 0</pose>
+        <geometry>
+          <box><size>1.1430 0.7493 0.0254</size></box>
+        </geometry>
+        <material>
+          <ambient>0.30 0.22 0.15 1</ambient>
+          <diffuse>0.62 0.46 0.28 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="top_board_col">
+        <pose>0 0 0.6604 0 0 0</pose>
+        <geometry>
+          <box><size>1.1430 0.7493 0.0254</size></box>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>
+

@@ -102,6 +102,12 @@ if __name__ == '__main__':
     except rospy.ROSInterruptException:
         pass'''
 
+
+
+
+
+
+'''
 import rospy
 import numpy as np
 import math
@@ -199,11 +205,12 @@ def move_arm(joint_positions):
     pub.publish(joint_position)
     rate.sleep()
 
+
 def interpolate_joint_positions(start_positions, end_positions, steps):
-    '''steps: The number of interpolation steps between the start and end positions.
+    ''' '''steps: The number of interpolation steps between the start and end positions.
     The for loop iterates from 0 to steps (inclusive), which allows for a total of steps + 1 positions (including the start and end).
     t exist from 0 to 1 . At step = 0, t = 0, and at step = steps, t = 1.
-    t determines how far along the transition you are between the starting and ending positions.'''
+    t determines how far along the transition you are between the starting and ending positions.''''''
     for step in range(steps + 1):
         t = step / steps
         intermediate_positions = [
@@ -217,7 +224,8 @@ def move_from_a_to_b(point_a, point_b):
     # Compute end-effector positions
     Rd = np.eye(3)  # Assuming no rotation for simplicity; adjust as needed
     joint_positions_a = inverse_kinematics_line(point_a, point_a)  # Correct call
-    joint_positions_b = inverse_kinematics_line(point_a, point_b)  # Use point_a as the start point
+    joint_positions_b = inverse_kinematics_line(point_a, point_b)  # Use point_a asoriginal_pos]
+ the start point
 
 
     if joint_positions_a is None or joint_positions_b is None:
@@ -244,10 +252,10 @@ if __name__ == '__main__':
         move_from_a_to_b(point_a, point_b)
 
     except rospy.ROSInterruptException:
-        pass
+        pass '''
+'''
 
-
-'''def interpolate_joint_positions(start_positions, end_positions, steps):
+def interpolate_joint_positions(start_positions, end_positions, steps):
     #t is a factor that ranges from 0 to 1.
     #At step = 0, t is 0 (corresponding to the start position).
     #At step = steps, t is 1 (corresponding to the end position).
@@ -276,3 +284,181 @@ if __name__ == '__main__':
 
     except rospy.ROSInterruptException:
         pass'''
+
+
+'''
+#!/usr/bin/env python3
+
+import rospy
+from kmriiwa_msgs.msg import JointPosition
+
+def main():
+    # Initialize the ROS node
+    rospy.init_node('robot_control', anonymous=True)
+
+    # Publisher for arm joint positions
+    arm_pub = rospy.Publisher('/kmriiwa/arm/command/JointPosition', JointPosition, queue_size=10)
+
+    # Define the rate at which to publish (10 Hz)/ (30 Hz)/ (50 Hz)/ (100 Hz )(200 Hz)/
+    rate = rospy.Rate(100)
+
+    # Define the different joint positions (original, position 1, position 2)
+    original_pos = JointPosition()
+    original_pos.header.seq = 0
+    original_pos.header.stamp = rospy.Time.now()
+    original_pos.header.frame_id = ''
+    original_pos.a1 = 0.0
+    original_pos.a2 = 0.0
+    original_pos.a3 = 0.0
+    original_pos.a4 = 0.0
+    original_pos.a5 = 0.0
+    original_pos.a6 = 0.0
+    original_pos.a7 = 0.0
+
+    pos1 = JointPosition()
+    pos1.header.seq = 0
+    pos1.header.stamp = rospy.Time.now()
+    pos1.header.frame_id = ''
+    pos1.a1 = 1
+    pos1.a2 = 1
+    pos1.a3 = 1
+    pos1.a4 = 1
+    pos1.a5 = 1
+    pos1.a6 = 1
+    pos1.a7 = 1
+
+    pos2 = JointPosition()
+    pos2.header.seq = 0
+    pos2.header.stamp = rospy.Time.now()
+    pos2.header.frame_id = ''
+    pos2.a1 = 2
+    pos2.a2 = 2
+    pos2.a3 = 2
+    pos2.a4 = 2
+    pos2.a5 = 2
+    pos2.a6 = 2
+    pos2.a7 = 2
+
+    pos3 = JointPosition()
+    pos3.header.seq = 0
+    pos3.header.stamp = rospy.Time.now()
+    pos3.header.frame_id = ''
+    pos3.a1 = 2
+    pos3.a2 = 2
+    pos3.a3 = 2
+    pos3.a4 = -2
+    pos3.a5 = 1
+    pos3.a6 = 1
+    pos3.a7 = 0
+
+    pos3 = JointPosition()
+    pos3.header.seq = 0
+    pos3.header.stamp = rospy.Time.now()
+    pos3.header.frame_id = ''
+    pos3.a1 = 2
+    pos3.a2 = 2
+    pos3.a3 = 2
+    pos3.a4 = -2
+    pos3.a5 = 1
+    pos3.a6 = 1
+    pos3.a7 = 0
+
+
+    # Create a list of positions to move through
+    positions = [original_pos, pos1, pos2, pos3, original_pos]
+
+    # Loop through the positions
+  
+    for pos in positions:
+        # Update the timestamp for each position
+        pos.header.stamp = rospy.Time.now()
+
+        # Publish the current joint position
+        arm_pub.publish(pos)
+
+        # Log the published message
+        rospy.loginfo("Published arm joint positions: %s", pos)
+
+        # Sleep to maintain the loop rate
+        # sleep so the arm gets enough time to the current posiition before recieving the next instrctuion
+        rospy.sleep(15)
+        rate.sleep()
+        
+
+if __name__ == '__main__':
+    try:
+        
+        main()
+    except rospy.ROSInterruptException:
+        pass
+'''
+
+
+#!/usr/bin/env python3
+
+import rospy
+from kmriiwa_msgs.msg import JointPosition
+from geometry_msgs.msg import Twist
+
+def move_base(linear_x, linear_y, duration):
+    pub = rospy.Publisher('/kmriiwa/base/command/cmd_vel', Twist, queue_size=10)
+    rospy.sleep(1)  # Ensure ROS is ready
+    rate = rospy.Rate(200)  # Control loop rate
+    twist = Twist()
+    twist.linear.x = linear_x
+    twist.linear.y = linear_y
+
+    start_time = rospy.Time.now()
+    while (rospy.Time.now() - start_time).to_sec() < duration:
+        rospy.loginfo("Moving base: linear_x = %f, linear_y = %f", linear_x, linear_y)
+        pub.publish(twist)
+        rate.sleep()
+
+    twist.linear.x = 0
+    twist.linear.y = 0
+    rospy.loginfo("Stopping base.")
+    pub.publish(twist)
+
+def move_arm(joint_positions):
+    arm_pub = rospy.Publisher('/kmriiwa/arm/command/JointPosition', JointPosition, queue_size=10)
+    rospy.sleep(1)  # Ensure ROS is ready
+    rate = rospy.Rate(100)  # Control rate
+    
+    for pos in joint_positions:
+        pos.header.stamp = rospy.Time.now()
+        arm_pub.publish(pos)
+        rospy.loginfo("Published arm joint positions: %s", pos)
+        rospy.sleep(5)  # Allow time for movement
+
+def main():
+    rospy.init_node('robot_task', anonymous=True)
+    
+    # Define joint positions
+    original_pos = JointPosition(a1=0.0, a2=0.0, a3=0.0, a4=0.0, a5=0.0, a6=0.0, a7=0.0)
+    reach_pos = JointPosition(a1=0, a2=1.9, a3=1, a4=0, a5=0, a6=0, a7=0)  # reach position
+    grab_pos = JointPosition(a1=0, a2=1.9, a3=0, a4=1.5, a5=0, a6=0, a7=0)
+    place_pos = JointPosition(a1=0, a2=1.9, a3=1, a4=0, a5=0, a6=0, a7=0)  # place position
+    
+    # Move base to Table A
+    move_base(0.2, 0.0, 5)
+    rospy.sleep(3)  # Allow time for movement
+    
+    # Reach for the item
+    move_arm([original_pos, reach_pos])
+    rospy.sleep(10)  # Allow time for movement
+    move_arm([ reach_pos, grab_pos])
+    rospy.sleep(20)  # Allow time for movement
+    
+    # Move base to Table B
+    move_base(-0.2, 0.0, 4)
+    
+    # Place the item
+    move_arm([place_pos, original_pos])
+
+if __name__ == '__main__':
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("ROS Interrupt detected, shutting down.")
+
+
