@@ -1,0 +1,3 @@
+timestamp,file_name,file_size_mb,gcode_lines,pause_latency_s,position_samples,stop_reason
+2025-11-09T16:31:00.705331,Cabel-Holder_27m（size2) copy.gcode,1.813,53604,60.2067,0,超时
+2025-11-09T16:33:42.920667,Cabel-Holder_27m（size2) copy.gcode,1.813,53604,60.0359,0,超时

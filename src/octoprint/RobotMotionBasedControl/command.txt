@@ -1,0 +1,3 @@
+rosrun octoprint stage6_integrated_script_251111.py   --url http://octopi.local   --api-key HDPJciX6JWnEwFr3R4xTc3rKVcqG63N4vRRLDWhOe7I   --speed-source cmd_vel   --cmd-vel-topic /kmriiwa/base/command/cmd_vel   --threshold 0.04
+
+rosrun octoprint script1112.py   --url http://octopi.local   --api-key HDPJciX6JWnEwFr3R4xTc3rKVcqG63N4vRRLDWhOe7I   --speed-source cmd_vel   --cmd-vel-topic /kmriiwa/base/command/cmd_vel   --threshold 0.04 

@@ -1,0 +1,13 @@
+[
+  {
+    "timestamp": "2025-11-10T20:52:40.314197",
+    "file_name": "Cabel-Holder_27m（size2) copy.gcode",
+    "file_size_mb": 1.813,
+    "gcode_lines": 53604,
+    "pause_latency_s": 60.1108,
+    "position_samples": 0,
+    "stop_reason": "超时",
+    "first_position": null,
+    "last_position": null
+  }
+]

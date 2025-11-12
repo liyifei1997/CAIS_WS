@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2025-11-09T16:31:00.705331",
+    "file_name": "Cabel-Holder_27m（size2) copy.gcode",
+    "file_size_mb": 1.813,
+    "gcode_lines": 53604,
+    "pause_latency_s": 60.2067,
+    "position_samples": 0,
+    "stop_reason": "超时",
+    "first_position": null,
+    "last_position": null
+  },
+  {
+    "timestamp": "2025-11-09T16:33:42.920667",
+    "file_name": "Cabel-Holder_27m（size2) copy.gcode",
+    "file_size_mb": 1.813,
+    "gcode_lines": 53604,
+    "pause_latency_s": 60.0359,
+    "position_samples": 0,
+    "stop_reason": "超时",
+    "first_position": null,
+    "last_position": null
+  }
+]

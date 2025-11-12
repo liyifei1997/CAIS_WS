@@ -1,0 +1,2 @@
+timestamp,file_name,file_size_mb,gcode_lines,pause_latency_s,position_samples,stop_reason
+2025-11-10T20:52:40.314197,Cabel-Holder_27m（size2) copy.gcode,1.813,53604,60.1108,0,超时
